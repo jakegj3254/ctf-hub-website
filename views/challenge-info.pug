@@ -1,0 +1,13 @@
+include index.pug
+
+body
+ div.challenge-view
+  h2.challenge-name #{name}
+  div.challenge-info-wrapper
+   h4.challenge-category #{category}
+   h4.challenge-points (#{points})
+  h3.challenge-description #{description}
+  div.submission-wrapper
+   h3.submission-label Flag
+   input.submission-input
+  
