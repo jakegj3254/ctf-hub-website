@@ -10,20 +10,24 @@ const port = process.env.PORT || 3000
 
 
 // Initialize moduels+setup functions
-var express_app = express()
+var app = express()
+
+// Set render engine, pug files need to be within views folder
+app.set('view engine', 'pug')
 
 
 
-
-
+app.get('/', function(req, res) {
+  res.render('index')
+})
 
 // Express static serving
-express_app.use('/', express.static('static'))
+app.use('/', express.static('static'))
 
 
 
 
 // Server Listen
-express_app.listen(port, function() {
+app.listen(port, function() {
   console.log("== Server is listening on port", port)
 })
