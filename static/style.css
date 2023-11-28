@@ -1,0 +1,87 @@
+/*INFO: Just made some basic styling (mostly to not burn out my retinas right now), probably not final */
+html {
+  background-color: #232634;
+}
+
+
+.navigation-wrapper {
+  /*Colors and placement navigation bar */
+  background-color: #303446;
+  color: #cad3f5;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 40px;
+  grid-auto-columns: 100px;
+  padding-left: 10px;
+  
+  border-radius: 12px;
+}
+
+.navigation-bar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 80px;
+  padding: 10px;
+}
+
+.route-wrapper {
+  padding-top: 5px;
+}
+
+.route {
+  text-decoration: none;
+  color: #b5bfe2;
+}
+
+/*INFO: Challenge view styling */
+
+.challenge-view {
+  margin-top: 130px;
+  color: #cad3f5;
+  padding: 20px;
+  border-radius: 8px;
+  border: 3px solid;
+  width: 40%;
+}
+
+.challenge-name {
+  text-align: center;
+  margin-bottom: 0px;
+}
+.challenge-category {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.challenge-points {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.submission-wrapper {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 8px;
+  grid-auto-columns: max-content 100px;
+  grid-template-rows: 20px;
+}
+
+.submission-label {
+  margin: 0px;
+  text-align: right;
+}
+
+.submission-input {
+  margin-top: 5px;
+}
+
+.challenge-info-wrapper {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 0px;
+  grid-auto-columns: 50px 50px;
+  grid-template-rows: 40px;
+  justify-content: center;
+}
