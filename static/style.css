@@ -1,8 +1,8 @@
 /*INFO: Just made some basic styling (mostly to not burn out my retinas right now), probably not final */
 html {
   background-color: #232634;
+  font-family: "Exo 2", sans-serif;
 }
-
 
 .navigation-wrapper {
   /*Colors and placement navigation bar */
@@ -13,7 +13,7 @@ html {
   grid-gap: 40px;
   grid-auto-columns: 100px;
   padding-left: 10px;
-  
+
   border-radius: 12px;
 }
 
@@ -33,6 +33,70 @@ html {
 .route {
   text-decoration: none;
   color: #b5bfe2;
+}
+
+/*INFO: Challenge list styling */
+
+.page-title-box {
+  background-color: #303446;
+  margin-top: 90px;
+  border-radius: 12px;
+  padding: 10px;
+  color: #cad3f5;
+}
+
+.challenge-page-title {
+  font-size: 80px;
+  text-align: center;
+  margin: 0;
+  padding-bottom: 10px;
+  font-weight: 300;
+}
+
+.challenge-page-desc {
+  padding: 10px;
+}
+
+.challenges-content {
+  margin-left: 10px;
+}
+
+.challenge-link {
+  text-decoration: none;
+}
+
+.category-title-box {
+  padding-left: 10px;
+  margin-top: 15px;
+}
+
+.category-title-box h3 {
+  font-size: 30px;
+  color: #f0eff4;
+  padding-left: 15px;
+  font-weight: 400;
+}
+
+.challenge-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.challenge-box {
+  height: 150px;
+  width: 150px;
+  margin: 15px;
+  padding: 10px;
+  border: 2px solid #26c485;
+  border-radius: 12px;
+  background-color: #36827f;
+}
+
+.challenge-box-info {
+  text-align: center;
+  color: #cad3f5;
+  padding-top: 10px;
+  height: 100%;
 }
 
 /*INFO: Challenge view styling */
