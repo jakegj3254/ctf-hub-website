@@ -15,7 +15,7 @@ const client = new Client();
  * Chal object must contain: name, points, description, category, and flag
  */
 async function create_challenge(chal) {
-    let result = await client.query('INSERT INTO challenges (name, category, points, description, flag) VALUES($1, $2, $3, $4, $5) RETURNING id;', [
+    let result = await client.query('INSERT INTO my_schema.challenges (name, category, points, description, flag) VALUES($1, $2, $3, $4, $5) RETURNING id;', [
         chal.name, chal.category, chal.points, chal.description, chal.flag
     ]);
     return result.rows[0].id;
@@ -27,7 +27,7 @@ async function create_challenge(chal) {
  * Used in get_challenges
  */
 async function get_sorted_category(category) {
-    return (await client.query(`SELECT * FROM challenges WHERE category = '${category}' ORDER BY points DESC`)).rows;
+    return (await client.query(`SELECT * FROM my_schema.challenges WHERE category = '${category}' ORDER BY points DESC`)).rows;
 }
 
 /*
@@ -47,7 +47,7 @@ async function get_challenges() {
  * Get a challenge from its id (or null if not found)
  */
 async function get_challenge(id) {
-    let result = await client.query('SELECT * FROM challenges WHERE id = $1', [id]);
+    let result = await client.query('SELECT * FROM my_schema.challenges WHERE id = $1', [id]);
     return result.rows.length === 1 ? result.rows[0] : null;
 }
 
@@ -55,7 +55,7 @@ async function get_challenge(id) {
  * Create a new team and return the team's id
  */
 async function create_team(name) {
-    let result = await client.query('INSERT INTO teams (name) VALUES($1) RETURNING id;', [name]);
+    let result = await client.query('INSERT INTO my_schema.teams (name) VALUES($1) RETURNING id;', [name]);
     return result.rows[0].id;
 }
 
@@ -63,7 +63,7 @@ async function create_team(name) {
  * Get all teams
  */
 async function get_teams() {
-    let results = await client.query('SELECT * FROM teams');
+    let results = await client.query('SELECT * FROM my_schema.teams');
     return results.rows;
 }
 
@@ -71,7 +71,7 @@ async function get_teams() {
  * Get a team from their id (or null if not found)
  */
 async function get_team(id) {
-    let result = await client.query('SELECT * FROM teams WHERE id = $1', [id]);
+    let result = await client.query('SELECT * FROM my_schema.teams WHERE id = $1', [id]);
     return result.rows.length === 1 ? result.rows[0] : null;
 }
 
@@ -79,7 +79,7 @@ async function get_team(id) {
  * Get a team's id from their name (or null if not found)
  */
 async function get_team_id_from_name(name) {
-    let result = await client.query('SELECT id FROM teams WHERE name = $1', [name]);
+    let result = await client.query('SELECT id FROM my_schema.teams WHERE name = $1', [name]);
     return result.rows.length === 1 ? result.rows[0].id : null;
 }
 
@@ -89,7 +89,7 @@ async function get_team_id_from_name(name) {
 async function create_solve(challenge_id, team_id) {
     // Don't INSERT into solves directly, use CALL add_solve() so that
     // teams.points and challenges.solves are also updated
-    await client.query('CALL add_solve($1, $2);', [challenge_id, team_id]);
+    await client.query('CALL my_schema.add_solve($1, $2);', [challenge_id, team_id]);
 }
 
 module.exports = {
