@@ -36,6 +36,13 @@ app.get('/', function(req, res) {
 app.get('/challenge/1', function(req, res) {
     res.send(compiledChallengeInfo(db.get_challenge(1)))
 })
+app.get('/chals', function(req, res) {
+    challenges = db.get_challenges()
+    res.render('challenge-list', {
+    challenges_test: challenges,
+    categories: ["crypto", "rev", "pwn", "web", "misc"]
+  })
+})
 // Express static serving
 app.use('/', express.static('static'))
 
