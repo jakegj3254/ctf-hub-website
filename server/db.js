@@ -1,93 +1,99 @@
 /*
- * Contains methods to perform basic create/read operations. In the future
- * they will interact with a proper database.
+ * Contains methods to perform basic database create/read operations
+ *
+ * Requires database parameters (PGUSER, PGHOST, PGDATABASE, PGPASSWORD, and
+ *   PGPORT) to be set via environment variables or .env file at project root
  */
 
-let challenges = [];
-let teams = [];
-let solves = [];
+require('dotenv').config();
+const { Client } = require('pg');
+const client = new Client();
 
 /*
  * Create a new challenge and return the challenge's id
  *
  * Chal object must contain: name, points, description, category, and flag
  */
-function create_challenge(chal) {
-    challenges.push({
-        name: chal.name,
-        points: chal.points,
-        description: chal.description,
-        category: chal.category,
-        flag: chal.flag,
-        solves: 0,
-    });
-    return challenges.length;
+async function create_challenge(chal) {
+    let result = await client.query('INSERT INTO challenges (name, category, points, description, flag) VALUES($1, $2, $3, $4, $5) RETURNING id;', [
+        chal.name, chal.category, chal.points, chal.description, chal.flag
+    ]);
+    return result.rows[0].id;
+}
+
+/*
+ * Get a sorted list of challenges in a category
+ *
+ * Used in get_challenges
+ */
+async function get_sorted_category(category) {
+    return (await client.query(`SELECT * FROM challenges WHERE category = '${category}' ORDER BY points DESC`)).rows;
 }
 
 /*
  * Get all challenges
  */
-function get_challenges() {
-    return challenges;
+async function get_challenges() {
+    let results = {};
+    results.crypto = await get_sorted_category('crypto');
+    results.rev = await get_sorted_category('rev');
+    results.pwn = await get_sorted_category('pwn');
+    results.web = await get_sorted_category('web');
+    results.misc = await get_sorted_category('misc');
+    return results;
 }
 
 /*
  * Get a challenge from its id (or null if not found)
  */
-function get_challenge(id) {
-    return challenges[id - 1] ? challenges[id - 1] : null;
+async function get_challenge(id) {
+    let result = await client.query('SELECT * FROM challenges WHERE id = $1', [id]);
+    return result.rows.length === 1 ? result.rows[0] : null;
 }
 
 /*
  * Create a new team and return the team's id
  */
-function create_team(name) {
-    teams.push({
-        name: name,
-        points: 0,
-    });
-    return teams.length;
+async function create_team(name) {
+    let result = await client.query('INSERT INTO teams (name) VALUES($1) RETURNING id;', [name]);
+    return result.rows[0].id;
 }
 
 /*
  * Get all teams
  */
-function get_teams() {
-    return teams;
+async function get_teams() {
+    let results = await client.query('SELECT * FROM teams');
+    return results.rows;
 }
 
 /*
  * Get a team from their id (or null if not found)
  */
-function get_team(id) {
-    return teams[id - 1] ? team[id - 1] : null;
+async function get_team(id) {
+    let result = await client.query('SELECT * FROM teams WHERE id = $1', [id]);
+    return result.rows.length === 1 ? result.rows[0] : null;
 }
 
 /*
  * Get a team's id from their name (or null if not found)
  */
-function get_team_id_from_name(name) {
-    for (let i = 0; i < teams.length; i++) {
-        if (teams[i].name === name) return i;
-    }
-    return null;
+async function get_team_id_from_name(name) {
+    let result = await client.query('SELECT id FROM teams WHERE name = $1', [name]);
+    return result.rows.length === 1 ? result.rows[0].id : null;
 }
 
 /*
  * Record a new solve
  */
-function create_solve(challenge_id, team_id) {
-    // TODO: prevent duplicate solves
-    solves.push({
-        challenge_id: challenge_id,
-        team_id: team_id,
-        timestamp: Date.now(),
-    });
-    challenges[challenge_id - 1].solves++;
-    teams[team_id - 1].points += challenges[challenge_id - 1].points;
+async function create_solve(challenge_id, team_id) {
+    // Don't INSERT into solves directly, use CALL add_solve() so that
+    // teams.points and challenges.solves are also updated
+    await client.query('CALL add_solve($1, $2);', [challenge_id, team_id]);
 }
 
 module.exports = {
+    client,
     create_challenge,
     get_challenges,
     get_challenge,
