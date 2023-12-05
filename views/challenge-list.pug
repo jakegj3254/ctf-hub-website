@@ -1,0 +1,33 @@
+include index.pug
+
+mixin challenge(name= 'Test', points=1, id=0)
+ .challenge-box
+  a.challenge-link(href= 'challenge/' + id ) 
+   .challenge-box-info
+    h= name
+    p= 'Points: ' + points
+
+mixin challenge-category(categoryname= 'Test Category', challenges)
+ .category-title-box
+  h3= categoryname
+ .challenge-list
+  each challengeItem in challenges
+   +challenge("test", 100, 1)
+
+
+
+
+
+
+body
+ div.page-title-box
+  h1.challenge-page-title Challenges
+  div.challenge-page-desc
+   p 
+    | The purpose of these CTF challenges is to practice the use of various hacking skills
+    | in order to obtain a secret flag hidden within a zip file. Teams can show off their abilities 
+    | by submitting these flags for points and view their ranking against other teams
+    | on the scoreboard.| 
+   p Select a challenge listed below to begin
+ each category in categories
+  +challenge-category(category, challenges_test)
