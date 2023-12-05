@@ -1,9 +1,22 @@
-# Stack 
-## Backend
-- Nodejs with Express + pug
-- MongoDB / SQL 
+# CTF Hub
+## Setup
+1. Setup a PostgreSQL database
 
-## Frontend 
-- Graphing library
-- javascript + css + html
+2. Add PostgreSQL settings to `.env`
+    ```env
+    PGUSER="username"
+    PGHOST="host"
+    PGDATABASE="database-name"
+    PGPASSWORD="password"
+    PGPORT=1234
+    ```
 
+3. Install dependencies
+    ```
+    npm install
+    ```
+
+4. Run server
+    ```
+    npm start
+    ```
