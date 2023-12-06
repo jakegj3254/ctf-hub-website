@@ -1,11 +1,22 @@
 include index
 
 body
- .challenge_new_wrapper
-  form.challenge_submit(action="/chals/" method="post")
-   label(for="name") Name:
-   input(id="name", type="text", name="name")
-   label(for="description", type="text", name="points")  Points:
-   input(type="submit", value="Submit")
-
-
+ form.form-container(action="/chals/" method="post")
+  h3.form-title Create New Challenge
+  label(for="new-chal-title") Challenge Title
+  input(type="text", name="title", required=true)
+  label(for="new-chal-category") Category
+  select(name="category")
+   option(value="crypto") crypto
+   option(value="rev") rev
+   option(value="pwn") pwn
+   option(value="web") web
+   option(value="misc") misc
+  label(for="new-chal-points") Points 
+  input(type="number", name="points", required=true, min=0)
+  label(for="new-chal-desciption") Description
+  input(type="text", name="description", required=true)
+  label(for="new-chal-flag") Flag
+  input(type="text", required=true, name="flag")
+  .form-button-container
+   input.submit-new-chal-button(type="submit", value="Submit Challenge")

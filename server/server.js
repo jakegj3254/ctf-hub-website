@@ -38,6 +38,10 @@ app.get('/chals', function(req, res) {
   })
     
 })
+
+app.get('/chals/new', function(req, res) {
+  res.render("challenge-new")
+})
 // Express static serving
 app.use('/', express.static('static'))
 
