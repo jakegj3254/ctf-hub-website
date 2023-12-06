@@ -7,12 +7,12 @@ mixin challenge(name= 'Test', points=1, id=0)
     h= name
     p= 'Points: ' + points
 
-mixin challenge-category(categoryname= 'Test Category', challenges)
+mixin challenge-category(categoryname= 'Test Category', challengeCategory)
  .category-title-box
   h3= categoryname
  .challenge-list
-  each challengeItem in challenges
-   +challenge("test", 100, 1)
+  each challengeItem in challengeCategory
+   +challenge(challengeItem.name, challengeItem.points, challengeItem.id)
 
 
 
@@ -30,4 +30,4 @@ body
     | on the scoreboard.| 
    p Select a challenge listed below to begin
  each category in categories
-  +challenge-category(category, challenges_test)
+  +challenge-category(category, challenges[category])
