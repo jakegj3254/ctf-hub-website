@@ -29,15 +29,17 @@ app.get('/challenge/1', async function(req, res) {
     res.send(compiledChallengeInfo(await db.get_challenge(1)))
 })
 app.get('/chals', function(req, res) {
-    challenges = db.get_challenges()
+    db.get_challenges().then(challenges => {
+    console.log(challenges.rev)
     res.render('challenge-list', {
-    challenges_test: challenges,
+    challenges: challenges,
     categories: ["crypto", "rev", "pwn", "web", "misc"]
   })
+  })
+    
 })
 // Express static serving
 app.use('/', express.static('static'))
-
 
 
 
