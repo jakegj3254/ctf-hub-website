@@ -149,3 +149,114 @@ html {
   grid-template-rows: 40px;
   justify-content: center;
 }
+
+/* INFO: Leaderboard styling */
+
+.scoreboard-desc {
+  text-align: center;
+}
+
+.chart-container {
+  margin-top: 15px;
+  margin-left: 15%;
+  margin-right: 15%;
+  padding: 10px;
+  border-radius: 12px;
+  width: 70%;
+  background-color: #d5d7e1;
+}
+
+#myChart {
+  width: 100%;
+}
+
+/* INFO: create new challenge styling */
+
+.form-container {
+  background-color: #303446;
+  margin-top: 90px;
+  margin-left: 25%;
+  margin-right: 25%;
+  border-radius: 12px;
+  padding: 10px;
+  color: #cad3f5;
+}
+
+.form-title {
+  font-size: 40px;
+  text-align: center;
+  margin: 0;
+  padding-bottom: 15px;
+  font-weight: 300;
+}
+
+.form-container label {
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
+
+.form-container input {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  padding: 5px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  background-color: #d5d7e1;
+  border-radius: 5px;
+}
+
+.form-container select {
+  resize: vertical;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  padding: 5px;
+  background-color: #d5d7e1;
+  border-radius: 5px;
+}
+
+.form-button-container {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.status-msg-container {
+  padding-left: 5px;
+}
+.status-msg-fail {
+  color: #FF4000;
+}
+
+.status-msg-success {
+  color: #C2E812;
+}
+
+.submit-new-chal-button {
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  border-color: 1px solid black;
+}
+
+.submit-new-chal-button:hover {
+  background-color:#4db8b4;
+}
+
+/* INFO: login page styling */
+/* Note: uses new challenge styling */
+
+.login-button {
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  border-color: 1px solid black;
+}
+
+.login-button:hover {
+  background-color:#4db8b4;
+}
