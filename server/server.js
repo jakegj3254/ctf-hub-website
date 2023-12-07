@@ -22,6 +22,10 @@ app.set('view engine', 'pug')
 
 const compiledChallengeInfo = pug.compileFile('./views/challenge-info.pug');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
 app.get('/', function(req, res) {
     db.get_challenges().then(challenges => {
     res.render('challenge-list', {
@@ -30,8 +34,15 @@ app.get('/', function(req, res) {
   })
   })
 })
-app.get('/challenge/1', async function(req, res) {
-    res.send(compiledChallengeInfo(await db.get_challenge(1)))
+
+app.get('/challenge/:id', async function(req, res, next) {
+    try {
+        var chal = await db.get_challenge(parseInt(req.params.id))
+        if (chal) res.send(compiledChallengeInfo(chal))
+        else next();
+    } catch {
+        next()
+    }
 })
 app.get('/chals', function(req, res) {
    res.redirect("/") 
@@ -41,6 +52,7 @@ app.get('/chals', function(req, res) {
 app.get('/chals/new', function(req, res) {
   res.render("challenge-new")
 })
+
 
 app.get('/scoreboard', function(req, res) {
   db.get_teams().then(teams => {
@@ -57,6 +69,7 @@ app.get('/scoreboard', function(req, res) {
   })
 
 })
+
 // Express static serving
 app.use('/', express.static('static'))
 
