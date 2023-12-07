@@ -53,6 +53,18 @@ app.get('/chals/new', function(req, res) {
   res.render("challenge-new")
 })
 
+app.post('/chals/', function (req, res, next) {
+    console.log(req.body)
+    db.create_challenge({
+        name: req.body.title,
+        category: req.body.category,
+        points: req.body.points,
+        description: req.body.description,
+        flag: req.body.flag
+    })
+    res.redirect('/chals/')
+})
+
 
 app.get('/scoreboard', function(req, res) {
   db.get_teams().then(teams => {
