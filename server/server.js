@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
   })
 })
 
-app.get('/challenge/:id', async function(req, res, next) {
+app.get('/chall/:id', async function(req, res, next) {
     try {
         var chal = await db.get_challenge(parseInt(req.params.id))
         if (chal) res.send(compiledChallengeInfo(chal))
@@ -80,6 +80,10 @@ app.get('/scoreboard', function(req, res) {
   })
   })
 
+})
+
+app.get("/login", function(req, res) {
+  res.render("login")
 })
 
 // Express static serving

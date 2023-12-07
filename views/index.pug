@@ -7,8 +7,13 @@ html(lang='en')
 
   div.navigation-bar 
    div.navigation-wrapper
-    h2 WebCTF
+    h2
+     a.route(href="/") WebCTF
     h3.route-wrapper
-      a.route(href='/') Scoreboard
+      a.route(href='/scoreboard') Scoreboard
     h3.route-wrapper
       a.route(href='/chals') Challenges
+
+    .login-nav
+     h3.route-wrapper
+      a.route(href='/login') Login

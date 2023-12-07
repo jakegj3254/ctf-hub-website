@@ -11,19 +11,17 @@ html {
   display: grid;
   grid-auto-flow: column;
   grid-gap: 40px;
-  grid-auto-columns: 100px;
+  grid-template-columns: 100px 100px 100px auto;
   padding-left: 10px;
-
   border-radius: 12px;
 }
 
 .navigation-bar {
-  position: fixed;
+  position: static;
   top: 0px;
   left: 0px;
   right: 0px;
   height: 80px;
-  padding: 10px;
 }
 
 .route-wrapper {
@@ -39,7 +37,6 @@ html {
 
 .page-title-box {
   background-color: #303446;
-  margin-top: 90px;
   border-radius: 12px;
   padding: 10px;
   color: #cad3f5;
@@ -263,4 +260,11 @@ html {
 
 #bar-chart {
  margin-top: 100px;
+}
+
+
+.login-nav {
+  align-self: stretch;
+  text-align: right;
+  padding-right: 20px;
 }

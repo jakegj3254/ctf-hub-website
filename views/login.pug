@@ -1,0 +1,9 @@
+include index
+
+
+form.form-container(action="/login" method="post")
+ h3.form-title Login 
+ label(for="login-team-name") Enter Team Name 
+ input#login-team-name(type="text" name="name")
+ .form-button-container
+  input.login-button(type="submit" value="Login")
