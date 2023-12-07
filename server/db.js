@@ -22,32 +22,23 @@ async function create_challenge(chal) {
 }
 
 /*
- * Get a sorted list of challenges in a category
- *
- * Used in get_challenges
- */
-async function get_sorted_category(category) {
-    return (await client.query(`SELECT * FROM my_schema.challenges WHERE category = '${category}' ORDER BY points DESC`)).rows;
-}
-
-/*
  * Get all challenges
  */
-async function get_challenges() {
+async function get_challenges(team_id) {
     let results = {};
-    results.crypto = await get_sorted_category('crypto');
-    results.rev = await get_sorted_category('rev');
-    results.pwn = await get_sorted_category('pwn');
-    results.web = await get_sorted_category('web');
-    results.misc = await get_sorted_category('misc');
+    results.crypto = (await client.query('SELECT * FROM my_schema.get_category($1, $2);', ['crypto', team_id])).rows;
+    results.rev = (await client.query('SELECT * FROM my_schema.get_category($1, $2);', ['rev', team_id])).rows;
+    results.pwn = (await client.query('SELECT * FROM my_schema.get_category($1, $2);', ['pwn', team_id])).rows;
+    results.web = (await client.query('SELECT * FROM my_schema.get_category($1, $2);', ['web', team_id])).rows;
+    results.misc = (await client.query('SELECT * FROM my_schema.get_category($1, $2);', ['misc', team_id])).rows;
     return results;
 }
 
 /*
  * Get a challenge from its id (or null if not found)
  */
-async function get_challenge(id) {
-    let result = await client.query('SELECT * FROM my_schema.challenges WHERE id = $1', [id]);
+async function get_challenge(challenge_id, team_id) {
+    let result = await client.query('SELECT * FROM my_schema.get_challenge($1, $2);', [challenge_id, team_id]);
     return result.rows.length === 1 ? result.rows[0] : null;
 }
 
@@ -84,12 +75,10 @@ async function get_team_id_from_name(name) {
 }
 
 /*
- * Record a new solve
+ * Submit a flag, returns boolean indicating whether flag is correct
  */
-async function create_solve(challenge_id, team_id) {
-    // Don't INSERT into solves directly, use CALL add_solve() so that
-    // teams.points and challenges.solves are also updated
-    await client.query('CALL my_schema.add_solve($1, $2);', [challenge_id, team_id]);
+async function submit_flag(challenge_id, team_id, flag) {
+    return (await client.query('SELECT * FROM my_schema.submit_flag($1, $2, $3)', [challenge_id, team_id, flag])).rows[0].submit_flag;
 }
 
 module.exports = {
@@ -101,5 +90,5 @@ module.exports = {
     get_teams,
     get_team,
     get_team_id_from_name,
-    create_solve,
+    submit_flag,
 };
