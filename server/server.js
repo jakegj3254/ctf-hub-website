@@ -25,8 +25,14 @@ const compiledChallengeInfo = pug.compileFile('./views/challenge-info.pug');
 app.get('/', function(req, res) {
     res.render('index')
 })
-app.get('/challenge/1', async function(req, res) {
-    res.send(compiledChallengeInfo(await db.get_challenge(1)))
+app.get('/challenge/:id', async function(req, res, next) {
+    try {
+        var chal = await db.get_challenge(parseInt(req.params.id))
+        if (chal) res.send(compiledChallengeInfo(chal))
+        else next();
+    } catch {
+        next()
+    }
 })
 app.get('/chals', function(req, res) {
     db.get_challenges().then(challenges => {
