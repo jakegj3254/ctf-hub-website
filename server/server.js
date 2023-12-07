@@ -23,24 +23,39 @@ app.set('view engine', 'pug')
 const compiledChallengeInfo = pug.compileFile('./views/challenge-info.pug');
 
 app.get('/', function(req, res) {
-    res.render('index')
-})
-app.get('/challenge/1', async function(req, res) {
-    res.send(compiledChallengeInfo(await db.get_challenge(1)))
-})
-app.get('/chals', function(req, res) {
     db.get_challenges().then(challenges => {
-    console.log(challenges.rev)
     res.render('challenge-list', {
     challenges: challenges,
     categories: ["crypto", "rev", "pwn", "web", "misc"]
   })
   })
+})
+app.get('/challenge/1', async function(req, res) {
+    res.send(compiledChallengeInfo(await db.get_challenge(1)))
+})
+app.get('/chals', function(req, res) {
+   res.redirect("/") 
     
 })
 
 app.get('/chals/new', function(req, res) {
   res.render("challenge-new")
+})
+
+app.get('/scoreboard', function(req, res) {
+  db.get_teams().then(teams => {
+    teamsName = []
+    teamsPoints = []
+    for (x in teams) {
+      teamsName.push(teams[x].name);
+      teamsPoints.push(teams[x].points)
+    }
+    res.render('scoreboard', {
+    teamList: teamsName,
+    teamPoint: teamsPoints,
+  })
+  })
+
 })
 // Express static serving
 app.use('/', express.static('static'))

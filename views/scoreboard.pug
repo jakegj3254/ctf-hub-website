@@ -1,0 +1,29 @@
+include index
+
+head
+ script(src="https://cdn.jsdelivr.net/npm/chart.js")
+
+body
+ canvas(id="bar-chart")
+ script.
+  new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: !{JSON.stringify(teamList)},
+      datasets: [
+        {
+          label: "Team Scores",
+          data: !{JSON.stringify(teamPoint)}
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+  });
+ 
+
