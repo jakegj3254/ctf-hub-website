@@ -91,13 +91,17 @@ app.get('/scoreboard', async function(req, res) {
 })
 
 app.get("/login", async function(req, res) {
-  res.render("login", {
-      team: await db.get_team(req.team_id),
-  })
+    res.render("login", {
+        team: await db.get_team(req.team_id),
+        teams: await db.get_teams(),
+    })
 })
 app.post('/login', async function(req, res, next) {
-    // TODO: handle team not found
     let team_id = await db.get_team_id_from_name(req.body.name);
+    if (team_id == null) {
+        // Team not found, create new team
+        team_id = await db.create_team(req.body.name);
+    }
     res.cookie('team_id', team_id);
     res.redirect('/chals/')
 })
