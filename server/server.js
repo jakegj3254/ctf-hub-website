@@ -30,12 +30,13 @@ app.get('/', function(req, res) {
     db.get_challenges().then(challenges => {
     res.render('challenge-list', {
     challenges: challenges,
-    categories: ["crypto", "rev", "pwn", "web", "misc"]
+    categories: ["crypto", "rev", "pwn", "web", "misc"],
+    user: "Test"
   })
   })
 })
 
-app.get('/chall/:id', async function(req, res, next) {
+app.get('/chals/:id', async function(req, res, next) {
     try {
         var chal = await db.get_challenge(parseInt(req.params.id))
         if (chal) res.send(compiledChallengeInfo(chal))

@@ -2,9 +2,9 @@ html(lang='en')
  head
   title= "WebCTF"
   link(rel='stylesheet', type='text/css', href='/style.css')
-  link(href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400&display=swap", rel="stylesheet")
+  link(href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400&display=swap", rel="stylesheet") 
  body
-
+  
   div.navigation-bar 
    div.navigation-wrapper
     h2
@@ -13,7 +13,9 @@ html(lang='en')
       a.route(href='/scoreboard') Scoreboard
     h3.route-wrapper
       a.route(href='/chals') Challenges
-
     .login-nav
      h3.route-wrapper
-      a.route(href='/login') Login
+      if !loggedIn
+       a.route(href='/login') Login
+      else
+       a.route #{user}
