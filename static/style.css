@@ -268,3 +268,12 @@ html {
   text-align: right;
   padding-right: 20px;
 }
+
+
+.error-page-message {
+  font-size: 40px;
+  text-align: center;
+  font-weight: 300;
+  color: #cad3f5;
+  font-family: "Exo 2", sans-serif;
+}
