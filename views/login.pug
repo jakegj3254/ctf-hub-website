@@ -2,8 +2,14 @@ include index
 
 
 form.form-container(action="/login" method="post")
- h3.form-title Login 
- label(for="login-team-name") Enter Team Name 
- input#login-team-name(type="text" name="name")
- .form-button-container
-  input.login-button(type="submit" value="Login")
+  h3.form-title Join a Team
+  label(for="login-team-name") Enter Team Name
+  input#login-team-name(type="text" name="name" list="team-names" placeholder="Name of new or existing team")
+  p If your team doesn't already exist, it will be created automatically
+
+  .form-button-container
+    input.login-button(type="submit" value="Join Team")
+
+  datalist#team-names
+    each team in teams
+      option #{team.name}

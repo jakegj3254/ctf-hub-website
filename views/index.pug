@@ -13,9 +13,11 @@ html(lang='en')
       a.route(href='/scoreboard') Scoreboard
     h3.route-wrapper
       a.route(href='/chals') Challenges
-    .login-nav
-     h3.route-wrapper
-      if !loggedIn
-       a.route(href='/login') Login
+    .team-name
+      if team
+        h3.route-wrapper #{team.name}
+    h3.route-wrapper
+      if !team
+        a.route(href='/login') Join a Team
       else
-       a.route #{user}
+        a.route(href='/logout') Logout

@@ -5,6 +5,7 @@
  */
 const express = require('express')
 const pug = require('pug')
+const cookieParser = require('cookie-parser');
 const db = require('./db.js');
 
 const port = process.env.PORT || 3000;
@@ -20,26 +21,31 @@ var app = express()
 // Set render engine, pug files need to be within views folder
 app.set('view engine', 'pug')
 
-const compiledChallengeInfo = pug.compileFile('./views/challenge-info.pug');
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cookieParser());
+app.use((req, res, next) => {
+    let team_id = parseInt(req.cookies.team_id)
+    req.team_id = isNaN(team_id) ? null : team_id
+    next()
+})
 
-app.get('/', function(req, res) {
-    db.get_challenges().then(challenges => {
+app.get('/', async function(req, res) {
     res.render('challenge-list', {
-    challenges: challenges,
-    categories: ["crypto", "rev", "pwn", "web", "misc"],
-    user: "Test"
-  })
-  })
+        challenges: await db.get_challenges(req.team_id),
+        team: await db.get_team(req.team_id),
+        categories: ["crypto", "rev", "pwn", "web", "misc"],
+    })
 })
 
 app.get('/chals/:id', async function(req, res, next) {
     try {
-        var chal = await db.get_challenge(parseInt(req.params.id))
-        if (chal) res.send(compiledChallengeInfo(chal))
+        let chal = await db.get_challenge(parseInt(req.params.id), req.team_id)
+        if (chal) res.render('challenge-info', {
+            ...chal,
+            team: await db.get_team(req.team_id),
+        })
         else next();
     } catch {
         next()
@@ -54,9 +60,9 @@ app.get('/chals/new', function(req, res) {
   res.render("challenge-new")
 })
 
-app.post('/chals/', function (req, res, next) {
-    console.log(req.body)
-    db.create_challenge({
+app.post('/chals/', async function (req, res, next) {
+    // TODO: handle errors
+    await db.create_challenge({
         name: req.body.title,
         category: req.body.category,
         points: req.body.points,
@@ -67,24 +73,41 @@ app.post('/chals/', function (req, res, next) {
 })
 
 
-app.get('/scoreboard', function(req, res) {
-  db.get_teams().then(teams => {
-    teamsName = []
-    teamsPoints = []
+app.get('/scoreboard', async function(req, res) {
+    let teams = await db.get_teams();
+    let teamsName = []
+    let teamsPoints = []
+    let currentTeam = null;
     for (x in teams) {
-      teamsName.push(teams[x].name);
-      teamsPoints.push(teams[x].points)
+        teamsName.push(teams[x].name);
+        teamsPoints.push(teams[x].points)
+        if (teams[x].id == req.team_id) currentTeam = teams[x];
     }
     res.render('scoreboard', {
-    teamList: teamsName,
-    teamPoint: teamsPoints,
-  })
-  })
-
+        team: currentTeam,
+        teamList: teamsName,
+        teamPoint: teamsPoints,
+    })
 })
 
-app.get("/login", function(req, res) {
-  res.render("login")
+app.get("/login", async function(req, res) {
+    res.render("login", {
+        team: await db.get_team(req.team_id),
+        teams: await db.get_teams(),
+    })
+})
+app.post('/login', async function(req, res, next) {
+    let team_id = await db.get_team_id_from_name(req.body.name);
+    if (team_id == null) {
+        // Team not found, create new team
+        team_id = await db.create_team(req.body.name);
+    }
+    res.cookie('team_id', team_id);
+    res.redirect('/chals/')
+})
+app.get("/logout", function(req, res) {
+    res.clearCookie('team_id')
+    res.redirect('/chals/')
 })
 
 // Express static serving
