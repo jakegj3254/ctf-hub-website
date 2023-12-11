@@ -13,15 +13,17 @@ body
       datasets: [
         {
           label: "Team Scores",
-          data: !{JSON.stringify(teamPoint)}
-        }
+          data: !{JSON.stringify(teamPoint)},
+          backgroundColor: '#85c1dc',
+          color: "#c6d0f5",
+        },
       ]
     },
     options: {
       legend: { display: false },
       title: {
         display: true,
-        text: 'Predicted world population (millions) in 2050'
+        text: 'Scoreboard'
       }
     }
   });

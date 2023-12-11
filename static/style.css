@@ -96,14 +96,14 @@ html {
   width: 150px;
   margin: 15px;
   padding: 10px;
-  border: 2px solid #26c485;
+  border: 2px solid #e78284;
   border-radius: 12px;
-  background-color: #36827f;
+  background-color: #e78284;
 }
 
 .challenge-box-info {
   text-align: center;
-  color: #cad3f5;
+  color: ##11111b;
   padding-top: 10px;
   height: 100%;
 }
@@ -139,6 +139,7 @@ html {
   grid-gap: 8px;
   grid-auto-columns: max-content 100px;
   grid-template-rows: 20px;
+
 }
 
 .submission-label {
@@ -199,7 +200,7 @@ html {
 .form-container label {
   margin-bottom: 10px;
   padding-top: 10px;
-}
+} 
 
 .form-container input {
   width: 100%;
@@ -285,4 +286,25 @@ html {
   font-weight: 300;
   color: #cad3f5;
   font-family: "Exo 2", sans-serif;
+}
+
+
+
+.flag-button-container {
+  display: flex;
+}
+
+.flag-submit-button {
+  margin-top: 3px;
+  font-size: 15px;
+  padding: 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  border-color: 1px solid black;
+}
+
+
+.solved_challenge {
+  background: #26c485;
+  border: 2px solid #26c485;
 }
