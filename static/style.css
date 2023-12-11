@@ -54,6 +54,18 @@ html {
   padding: 10px;
 }
 
+.link-button {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  border-color: 1px solid black;
+}
+
+.link-button:hover {
+  background-color:#4db8b4;
+}
+
 .challenges-content {
   margin-left: 10px;
 }

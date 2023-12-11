@@ -27,7 +27,9 @@ body
     | The purpose of these CTF challenges is to practice the use of various hacking skills
     | in order to obtain a secret flag hidden within a zip file. Teams can show off their abilities 
     | by submitting these flags for points and view their ranking against other teams
-    | on the scoreboard.| 
-   p Select a challenge listed below to begin
+    | on the scoreboard.
+   p Select a challenge listed below to begin.
+   a(href= 'chals/new')
+    input.link-button(type="button" value="Create a new challenge")
  each category in categories
   +challenge-category(category, challenges[category])
