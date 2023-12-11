@@ -153,8 +153,8 @@ html {
   text-align: center;
 }
 
-.chart-container {
-  margin-top: 15px;
+/* .chart-container { */
+#bar-chart {
   margin-left: 15%;
   margin-right: 15%;
   padding: 10px;
@@ -163,9 +163,6 @@ html {
   background-color: #d5d7e1;
 }
 
-#myChart {
-  width: 100%;
-}
 
 /* INFO: create new challenge styling */
 
