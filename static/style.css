@@ -63,7 +63,7 @@ html {
 }
 
 .link-button:hover {
-  background-color:#4db8b4;
+  background-color: #4db8b4;
 }
 
 .challenges-content {
@@ -103,7 +103,7 @@ html {
 
 .challenge-box-info {
   text-align: center;
-  color: ##11111b;
+  color: #11111b;
   padding-top: 10px;
   height: 100%;
 }
@@ -123,6 +123,7 @@ html {
   text-align: center;
   margin-bottom: 0px;
 }
+
 .challenge-category {
   text-align: center;
   margin-top: 5px;
@@ -200,7 +201,7 @@ html {
 .form-container label {
   margin-bottom: 10px;
   padding-top: 10px;
-} 
+}
 
 .form-container input {
   width: 100%;
@@ -233,6 +234,7 @@ html {
 .status-msg-container {
   padding-left: 5px;
 }
+
 .status-msg-fail {
   color: #FF4000;
 }
@@ -250,7 +252,7 @@ html {
 }
 
 .submit-new-chal-button:hover {
-  background-color:#4db8b4;
+  background-color: #4db8b4;
 }
 
 /* INFO: login page styling */
@@ -265,11 +267,11 @@ html {
 }
 
 .login-button:hover {
-  background-color:#4db8b4;
+  background-color: #4db8b4;
 }
 
 #bar-chart {
- margin-top: 100px;
+  margin-top: 100px;
 }
 
 

@@ -4,13 +4,13 @@ mixin challenge(name= 'Test', points=1, id=0, solved=false)
   if !solved
     .challenge-box
       a.challenge-link(href= 'chals/' + id ) 
-      .challenge-box-info
+       .challenge-box-info
         h= name
         p= 'Points: ' + points
   else
     .challenge-box.solved_challenge
       a.challenge-link(href= 'chals/' + id ) 
-      .challenge-box-info
+       .challenge-box-info
         h= name
         p= 'Points: ' + points
 
