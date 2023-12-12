@@ -1,18 +1,25 @@
 include index.pug
 
-mixin challenge(name= 'Test', points=1, id=0)
- .challenge-box
-  a.challenge-link(href= 'chals/' + id ) 
-   .challenge-box-info
-    h= name
-    p= 'Points: ' + points
+mixin challenge(name= 'Test', points=1, id=0, solved=false) 
+  if !solved
+    .challenge-box
+      a.challenge-link(href= 'chals/' + id ) 
+      .challenge-box-info
+        h= name
+        p= 'Points: ' + points
+  else
+    .challenge-box.solved_challenge
+      a.challenge-link(href= 'chals/' + id ) 
+      .challenge-box-info
+        h= name
+        p= 'Points: ' + points
 
 mixin challenge-category(categoryname= 'Test Category', challengeCategory)
  .category-title-box
   h3= categoryname
  .challenge-list
   each challengeItem in challengeCategory
-   +challenge(challengeItem.name, challengeItem.points, challengeItem.id)
+   +challenge(challengeItem.name, challengeItem.points, challengeItem.id, challengeItem.team_solved)
 
 
 

@@ -8,6 +8,7 @@ const pug = require('pug')
 const cookieParser = require('cookie-parser');
 const db = require('./db.js');
 
+
 const port = process.env.PORT || 3000;
 
 // Connect to database
@@ -37,8 +38,10 @@ app.use((req, res, next) => {
 
 app.get('/', async function(req, res) {
     try {
+        let challenges_fetch = await db.get_challenges(req.team_id)
+        console.log(challenges_fetch.rev)
         res.render('challenge-list', {
-            challenges: await db.get_challenges(req.team_id),
+            challenges: await challenges_fetch,
             team: await db.get_team(req.team_id),
             categories: ["crypto", "rev", "pwn", "web", "misc"],
         })
@@ -64,6 +67,24 @@ app.get('/chals/:id', async function(req, res, next) {
         next(err)
     }
 })
+
+app.post('/chals/:id', async function(req, res, next) {
+    try {
+        let chal_id = to_int(req.params.id, null)
+        let team_id = req.cookies.team_id
+        let user_flag = req.body.flag
+        if (chal_id && team_id && user_flag) {
+          db.submit_flag(chal_id, team_id, user_flag); 
+          res.redirect("/")
+        } else {
+            // Challenge not found
+            next();
+        }
+    } catch (err) {
+        next(err)
+    }
+})
+
 app.get('/chals', function(req, res) {
    res.redirect("/") 
     
