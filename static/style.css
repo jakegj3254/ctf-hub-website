@@ -315,3 +315,30 @@ html {
   background: #26c485;
   border: 2px solid #26c485;
 }
+
+
+
+
+/*INFO: Notification Styling */
+
+#notification {
+  margin-top:10px;
+  position: fixed;
+  bottom: 0px;
+  top: 0px;
+  left: 90%;
+  opacity: 0;
+  background-color: #d20f39;
+  padding-right: 4px;
+  height: 50px;
+  border-radius: 8px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#notification.shown {
+  opacity: 1;
+}
+
+#notification.correct {
+  background-color: #40a02b;
+}
