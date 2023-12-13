@@ -78,7 +78,7 @@ app.post('/chals/:id', async function(req, res, next) {
             res.redirect("/chals/"+chal_id+"?submission=false&message=\"Flag incorrect\"")
             
           }
-          else res.redirect("/chals/"+chal_id+"?submission=true&message=\"Correct flag\"")
+          else res.redirect("/"+ "?submission=true&message=\"Correct flag\"")
         } else {
             // Challenge not found
             next();
