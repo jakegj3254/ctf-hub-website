@@ -7,7 +7,7 @@ body
    h4.challenge-category #{category}
    h4.challenge-points (#{points})
   h3.challenge-description #{description}
-  form.submission-container(action="/chals/2/" method="post")
+  form.submission-container(method="post")
    h3 Flag Submission
    input.submission-input(maxlength="64", name="flag", type="text", required=true)
    .flag-button-container
