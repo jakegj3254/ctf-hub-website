@@ -70,10 +70,9 @@ app.get('/chals/:id', async function(req, res, next) {
 app.post('/chals/:id', async function(req, res, next) {
     try {
         let chal_id = to_int(req.params.id, null)
-        let team_id = req.cookies.team_id
         let user_flag = req.body.flag
-        if (chal_id && team_id && user_flag) {
-          let submission = await db.submit_flag(chal_id, team_id, user_flag);
+        if (chal_id && req.team_id && user_flag) {
+          let submission = await db.submit_flag(chal_id, req.team_id, user_flag);
           if(!submission) {
             res.redirect("/chals/"+chal_id+"?submission=false&message=\"Flag incorrect\"")
             
@@ -89,11 +88,13 @@ app.post('/chals/:id', async function(req, res, next) {
 })
 
 app.get('/chals', function(req, res) {
-   res.redirect("/")  
+   res.redirect("/")
 })
 
-app.get('/chals/new', function(req, res) {
-  res.render("challenge-new")
+app.get('/chals/new', async function(req, res) {
+  res.render("challenge-new", {
+      team: await db.get_team(req.team_id),
+  })
 })
 
 app.post('/chals/', async function (req, res, next) {
