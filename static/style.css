@@ -166,6 +166,10 @@ html {
   justify-content: center;
 }
 
+.login-reminder {
+  color: #FF4000;
+}
+
 /* INFO: Leaderboard styling */
 
 .scoreboard-desc {
@@ -238,10 +242,6 @@ html {
 
 .status-msg-container {
   padding-left: 5px;
-}
-
-.status-msg-fail {
-  color: #FF4000;
 }
 
 .status-msg-success {

@@ -9,7 +9,10 @@ body
   h3.challenge-description #{description}
   form.submission-container(method="post")
    h3 Flag Submission
-   input.submission-input(maxlength="64", name="flag", type="text", required=true)
-   .flag-button-container
-    input.flag-submit-button(type="submit", value="Submit Flag")
+   if team
+    input.submission-input(maxlength="64", name="flag", type="text", required=true)
+    .flag-button-container
+     input.flag-submit-button(type="submit", value="Submit Flag")
+   else 
+    h3.login-reminder Login required to submit a flag
   
