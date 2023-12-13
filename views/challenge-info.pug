@@ -6,7 +6,13 @@ body
   div.challenge-info-wrapper
    h4.challenge-category #{category}
    h4.challenge-points (#{points})
-  h3.challenge-description #{description}
+  h3.challenge-description
+   each line in description.split('\n')
+    if line.startsWith('https://')
+     a(href=line) #{line}
+    else
+     | #{line}
+    br
   form.submission-container(method="post")
    h3 Flag Submission
    if team
