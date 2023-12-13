@@ -13,6 +13,8 @@ mixin challenge(name= 'Test', points=1, id=0, solved=false)
        .challenge-box-info
         h= name
         p= 'Points: ' + points
+        .challenge-box-solve 
+         p Already Solved!
 
 mixin challenge-category(categoryname= 'Test Category', challengeCategory)
  .category-title-box

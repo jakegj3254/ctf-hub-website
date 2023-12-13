@@ -108,6 +108,11 @@ html {
   height: 100%;
 }
 
+.challenge-box-solve {
+  padding-top: 30px;
+  font-style: italic;
+}
+
 /*INFO: Challenge view styling */
 
 .challenge-view {
