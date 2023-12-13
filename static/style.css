@@ -54,6 +54,10 @@ html {
   padding: 10px;
 }
 
+.challenge-description a {
+  color: #cad3f5;
+}
+
 .link-button {
   padding: 8px;
   font-size: 16px;
