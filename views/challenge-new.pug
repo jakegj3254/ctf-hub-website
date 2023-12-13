@@ -15,7 +15,7 @@ body
   label(for="new-chal-points") Points 
   input(type="number", name="points", required=true, min=0, max=2147483647)
   label(for="new-chal-desciption") Description
-  input(type="text", name="description", required=true, maxlength="1024")
+  textarea(name="description", required=true, maxlength="1024")
   label(for="new-chal-flag") Flag
   input(type="text", required=true, name="flag" maxlength="64")
   .form-button-container
