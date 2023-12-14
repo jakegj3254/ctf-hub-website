@@ -1,3 +1,7 @@
+DELETE FROM my_schema.solves;
+DELETE FROM my_schema.challenges;
+DELETE FROM my_schema.teams;
+
 INSERT INTO my_schema.teams (name) VALUES('Team A');
 INSERT INTO my_schema.teams (name) VALUES('Team B');
 INSERT INTO my_schema.teams (name) VALUES('Team C');
@@ -11,7 +15,23 @@ INSERT INTO my_schema.challenges (name, category, points, description, flag)
 INSERT INTO my_schema.challenges (name, category, points, description, flag)
     VALUES('Challenge D', 'web', 100, 'About challenge d...', 'test{d}');
 
-CALL my_schema.add_solve(1, 1);
-CALL my_schema.add_solve(3, 1);
-CALL my_schema.add_solve(2, 2);
-CALL my_schema.add_solve(3, 2);
+SELECT FROM my_schema.submit_flag(
+    (SELECT id from my_schema.challenges WHERE name = 'Challenge A'),
+    (SELECT id from my_schema.teams WHERE name = 'Team A'),
+    (SELECT flag from my_schema.challenges WHERE name = 'Challenge A')
+);
+SELECT FROM my_schema.submit_flag(
+    (SELECT id from my_schema.challenges WHERE name = 'Challenge C'),
+    (SELECT id from my_schema.teams WHERE name = 'Team A'),
+    (SELECT flag from my_schema.challenges WHERE name = 'Challenge C')
+);
+SELECT FROM my_schema.submit_flag(
+    (SELECT id from my_schema.challenges WHERE name = 'Challenge B'),
+    (SELECT id from my_schema.teams WHERE name = 'Team B'),
+    (SELECT flag from my_schema.challenges WHERE name = 'Challenge B')
+);
+SELECT FROM my_schema.submit_flag(
+    (SELECT id from my_schema.challenges WHERE name = 'Challenge C'),
+    (SELECT id from my_schema.teams WHERE name = 'Team B'),
+    (SELECT flag from my_schema.challenges WHERE name = 'Challenge C')
+);

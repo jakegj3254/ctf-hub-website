@@ -44,7 +44,8 @@ AS $$
     SELECT id,name,points,description,flag,solves,
         EXISTS (SELECT FROM my_schema.solves WHERE challenge_id = id AND team_id = _team) AS team_solved
     FROM my_schema.challenges
-    WHERE category = _category;
+    WHERE category = _category
+    ORDER BY points DESC;
 $$;
 
 CREATE FUNCTION my_schema.get_challenge(_challenge INTEGER, _team INTEGER = -1)

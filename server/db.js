@@ -54,7 +54,7 @@ async function create_team(name) {
  * Get all teams
  */
 async function get_teams() {
-    let results = await client.query('SELECT * FROM my_schema.teams');
+    let results = await client.query('SELECT * FROM my_schema.teams ORDER BY name ASC');
     return results.rows;
 }
 
