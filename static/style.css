@@ -66,6 +66,11 @@ html {
   border-color: 2px solid #232634;
 }
 
+.link-button:hover {
+  background-color: #26c485;
+  border: 2px solid #26c485;
+}
+
 .challenges-content {
   margin-left: 10px;
 }
@@ -333,7 +338,7 @@ html {
   left: 90%;
   opacity: 0;
   background-color: #d20f39;
-  padding-right: 4px;
+  padding: 0px 20px;
   height: 50px;
   border-radius: 8px;
   transition: opacity 0.5s ease-in-out;

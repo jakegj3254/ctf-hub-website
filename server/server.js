@@ -74,10 +74,10 @@ app.post('/chals/:id', async function(req, res, next) {
         if (chal_id && req.team_id && user_flag) {
           let submission = await db.submit_flag(chal_id, req.team_id, user_flag);
           if(!submission) {
-            res.redirect("/chals/"+chal_id+"?submission=false&message=\"Flag incorrect\"")
+            res.redirect("/chals/"+chal_id+"?submission=false&message=Flag incorrect")
             
           }
-          else res.redirect("/"+ "?submission=true&message=\"Correct flag\"")
+          else res.redirect("/"+ "?submission=true&message=Correct flag")
         } else {
             // Challenge not found
             next();
