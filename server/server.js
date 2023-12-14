@@ -36,7 +36,7 @@ app.use((req, res, next) => {
     next()
 })
 
-app.get('/', async function(req, res) {
+app.get('/', async function(req, res, next) {
     try {
         let challenges_fetch = await db.get_challenges(req.team_id)
         res.render('challenge-list', {
@@ -114,7 +114,7 @@ app.post('/chals/', async function (req, res, next) {
 })
 
 
-app.get('/scoreboard', async function(req, res) {
+app.get('/scoreboard', async function(req, res, next) {
     try {
         let teams = await db.get_teams();
         let teamsName = []
@@ -135,7 +135,7 @@ app.get('/scoreboard', async function(req, res) {
     }
 })
 
-app.get("/login", async function(req, res) {
+app.get("/login", async function(req, res, next) {
     try {
         res.render("login", {
             team: await db.get_team(req.team_id),
